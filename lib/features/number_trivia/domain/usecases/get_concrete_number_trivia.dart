@@ -4,7 +4,7 @@ import 'package:meta/meta.dart';
 
 import '../../../../core/error/failures.dart';
 import '../entities/number_trivia.dart';
-import '../repositories/number_trivia_repository.dart';
+import '../repositories/repository.dart';
 import 'usecases.dart';
 
 class GetConcreteNumberTrivia implements UseCase<NumberTrivia, Params> {
