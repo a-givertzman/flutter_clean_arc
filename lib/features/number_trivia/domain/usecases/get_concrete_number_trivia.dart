@@ -22,7 +22,7 @@ class GetConcreteNumberTrivia implements UseCase<NumberTrivia, Params> {
 
 
 class Params extends Equatable {
-  final int number;
+  final double number;
 
   Params({@required this.number}) : super();
 

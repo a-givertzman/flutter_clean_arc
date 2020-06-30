@@ -5,7 +5,7 @@ abstract class NumberTriviaRemoteDataSource {
   /// Метод вызывает http://numbersapi.com/random/[number]?json
   /// 
   /// Сгененрирует [ServerExeption] при любой ошибке
-  Future<NumberTriviaModel> getConcreteNumberTrivia(int number);
+  Future<NumberTriviaModel> getConcreteNumberTrivia(double number);
 
   /// Метод вызывает http://numbersapi.com/random/trivia?json
   /// 

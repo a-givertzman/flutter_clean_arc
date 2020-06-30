@@ -17,7 +17,7 @@ void main() {
     usecase = GetConcreteNumberTrivia(mockNumberTriviaRepository);
   });
 
-  final tNumber = 1;
+  final double tNumber = 1;
   final tNumberTrivia = NumberTrivia(text: "test number", number: 1);
 
   test(

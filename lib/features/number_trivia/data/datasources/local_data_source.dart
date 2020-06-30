@@ -7,5 +7,8 @@ abstract class NumberTriviaLocalDataSource {
   /// 
   /// Вызовет ошибку [CacheException] если в кэше ничего нет
   Future<NumberTriviaModel> getLastNumberTrivia();
+
+  /// Сохраняет последний NumberTriviaModel в кэш
+  /// 
   Future<void> cacheLastNumberTrivia(NumberTriviaModel numberTriviaToCache);
 }
