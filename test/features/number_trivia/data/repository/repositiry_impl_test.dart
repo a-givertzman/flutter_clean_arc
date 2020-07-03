@@ -1,6 +1,6 @@
 import 'package:clean_arcitecture/core/error/exceptions.dart';
 import 'package:clean_arcitecture/core/error/failures.dart';
-import 'package:clean_arcitecture/core/platform/network_info.dart';
+import 'package:clean_arcitecture/core/network/network_info.dart';
 import 'package:clean_arcitecture/features/number_trivia/data/datasources/local_data_source.dart';
 import 'package:clean_arcitecture/features/number_trivia/data/datasources/remote_data_source.dart';
 import 'package:clean_arcitecture/features/number_trivia/data/models/model.dart';

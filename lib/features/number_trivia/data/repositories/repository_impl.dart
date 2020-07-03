@@ -5,13 +5,13 @@ import 'package:meta/meta.dart';
 
 import '../../../../core/error/failures.dart';
 import '../../../../core/error/exceptions.dart';
-import '../../../../core/platform/network_info.dart';
+import '../../../../core/network/network_info.dart';
 import '../../domain/entities/number_trivia.dart';
 import '../../domain/repositories/repository.dart';
 import '../datasources/local_data_source.dart';
 import '../datasources/remote_data_source.dart';
 
-typedef Future<NumberTrivia> _ConcreteOrRandomSelector();
+typedef Future<NumberTrivia> _ConcreteOrRandomSelector();   // тип для вызова одного из двух методлв
 
 class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   final NumberTriviaRemoteDataSource remoteDataSource;
@@ -35,11 +35,11 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   }
 
   Future<Either<Failure, NumberTrivia>> _getNumberTrivia(
-    _ConcreteOrRandomSelector getConcreteOrRandom
+    _ConcreteOrRandomSelector getConcreteOrRandom           // вызов одного из двух методов
   ) async {
     if (await networkInfo.isConnected) {
       try {
-        final remoteTrivia = await getConcreteOrRandom();
+        final remoteTrivia = await getConcreteOrRandom();   // вызов одного из двух методов
         localDataSource.cacheLastNumberTrivia(remoteTrivia);
         return Right(remoteTrivia);
       } on ServerException {
