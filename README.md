@@ -1,6 +1,6 @@
 # clean_arcitecture
 
-A new Flutter project.
+A simple flutter project wich realise the clean architecture.
 
 ## Getting Started
 
