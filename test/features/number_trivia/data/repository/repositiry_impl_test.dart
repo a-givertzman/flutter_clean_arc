@@ -117,7 +117,7 @@ main() {
         () async {
           // arrange
           when(mockRemoteDataSource.getConcreteNumberTrivia(any))
-            .thenThrow(ServerException(''));
+            .thenThrow(ServerException(message: ''));
 
           // act
           final result = await repository.getConcreteNumberTrivia(tNumber);
@@ -155,7 +155,7 @@ main() {
         () async {
           // arrange
           when(mockLocalDataSource.getLastNumberTrivia())
-            .thenThrow(CacheException(''));
+            .thenThrow(CacheException(message: ''));
 
           // act
           final result = await repository.getConcreteNumberTrivia(tNumber);
@@ -223,7 +223,7 @@ main() {
         () async {
           // arrange
           when(mockRemoteDataSource.getRandomNumberTrivia())
-            .thenThrow(ServerException(''));
+            .thenThrow(ServerException(message: ''));
 
           // act
           final result = await repository.getRandomNumberTrivia();
@@ -261,7 +261,7 @@ main() {
         () async {
           // arrange
           when(mockLocalDataSource.getLastNumberTrivia())
-            .thenThrow(CacheException(''));
+            .thenThrow(CacheException(message: ''));
 
           // act
           final result = await repository.getRandomNumberTrivia();

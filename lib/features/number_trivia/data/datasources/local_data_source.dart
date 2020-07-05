@@ -34,7 +34,7 @@ class NumberTriviaLocalDataSourceImpl implements NumberTriviaLocalDataSource {
       final jsonMap = json.decode(jsonString);
       return Future.value(NumberTriviaModel.fromJson(jsonMap));
     } else {
-      throw CacheException('В кэше нет LastNumberTrivia');
+      throw CacheException(message: 'В кэше нет LastNumberTrivia');
     }
   }
 
@@ -42,7 +42,7 @@ class NumberTriviaLocalDataSourceImpl implements NumberTriviaLocalDataSource {
   Future<void> cacheLastNumberTrivia(NumberTriviaModel numberTriviaToCache) {
     return sharedPreferences.setString(
       CACHED_NUMBER_TRIVIA,
-      json.encode(numberTriviaToCache.toJson())
+      json.encode(numberTriviaToCache.toJson()),
     );
   }
 
