@@ -28,7 +28,7 @@ dependencies:
   get_it: ^4.0.2
 
   # bloc for satet manegement
-  flutter_bloc: ^4.0.1
+  flutter_bloc: ^5.0.0
 
   # Value equality
   equatable: ^1.2.0
