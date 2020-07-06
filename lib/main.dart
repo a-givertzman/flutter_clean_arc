@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'injection_container.dart' as dependencyInjections;
 
-void main() {
+void main() async {
+  
+  // проверяем зависимости
+  await dependencyInjections.init();
+
+  // если все зависимости прошли проверку, 
+  // то запускаем приложение
   runApp(MyApp());
 }
 

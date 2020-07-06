@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
@@ -23,10 +22,10 @@ abstract class NumberTriviaRemoteDataSource {
 
 
 class NumberTriviaRemoteDataSourceImpl implements NumberTriviaRemoteDataSource {
-  final http.Client client;
+  final http.Client httpClient;
 
   NumberTriviaRemoteDataSourceImpl({
-    @required this.client
+    @required this.httpClient
   });
 
 
@@ -44,7 +43,7 @@ class NumberTriviaRemoteDataSourceImpl implements NumberTriviaRemoteDataSource {
 
   Future<NumberTriviaModel> _getNumberTriviaFromUrl(String url) async {
 
-    final response = await client.get(
+    final response = await httpClient.get(
       url,
       headers: {
         'Content-Type': 'application/json'
