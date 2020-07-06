@@ -6,20 +6,24 @@ abstract class NumberTriviaState extends Equatable {
 }
 
 
-class NumberTriviaInitial extends NumberTriviaState {
+class Initial extends NumberTriviaState {
+  final String initMessage;
+
+  Initial({@required this.initMessage});
+
   @override
-  List<Object> get props => [];
+  List<Object> get props => [initMessage];
 }
 
 
 class Loading extends NumberTriviaState {
-  final String loadingMessage;
+  final String message;
 
-  Loading({@required this.loadingMessage});
+  Loading({@required this.message});
 
   @override
   // TODO: проверить это
-  List<Object> get props => [loadingMessage];
+  List<Object> get props => [message];
 }
 
 
@@ -35,11 +39,11 @@ class Loaded extends NumberTriviaState {
 
 
 class Error extends NumberTriviaState {
-  final String errorMessage;
+  final String message;
 
-  Error({@required this.errorMessage});
+  Error({@required this.message});
 
   @override
   // TODO: проверить это
-  List<Object> get props => [errorMessage];
+  List<Object> get props => [message];
 }
