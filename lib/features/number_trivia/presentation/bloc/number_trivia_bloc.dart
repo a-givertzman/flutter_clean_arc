@@ -18,7 +18,7 @@ part 'number_trivia_state.dart';
 const String SERVER_FAILURE_MESSAGE = 'Ошибка доступа к серверу';
 const String CACHE_FAILURE_MESSAGE = 'Ошибка доступа к кэшу';
 const String INVALID_INPUT_FAILURE_MESSAGE = 'Ошибка ввода - допускается число больше 0';
-const String INIT_STATE_MESSAGE = 'Пока ничего';
+const String INIT_STATE_MESSAGE = 'Привет! \nначинай...';
 const String LOADING_STATE_MESSAGE = 'Подождите, загрузка...';
 
 class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
@@ -43,7 +43,7 @@ class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
 
 
   @override
-  NumberTriviaState get initialState => Initial(initMessage: INIT_STATE_MESSAGE);
+  NumberTriviaState get initialState => Initial(message: INIT_STATE_MESSAGE);
 
 
   /// Возвращает State в зависимости от пришедшего event
@@ -57,7 +57,7 @@ class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
 
       // проверяем и конвертируем значение из UI
       // Either < Failure or double >
-      final number = inputConverter.stringToDouble(event.numberString);
+      final number = inputConverter.stringToUInt(event.numberString);
 
       yield* number.fold(
         
@@ -67,14 +67,14 @@ class NumberTriviaBloc extends Bloc<NumberTriviaEvent, NumberTriviaState> {
         },
 
         // если пришло double от inputConverter.stringToDouble
-        (doubleValue) async* {
+        (intleValue) async* {
           
           // делаем стейт Loading пока идет загрузка
           yield Loading(message: LOADING_STATE_MESSAGE);
 
           // Запрос на сервер
           // Either < Failure or NumberTrivia >
-          final usecaseResult = await getConcreteNumberTrivia(Params(number: doubleValue));
+          final usecaseResult = await getConcreteNumberTrivia(Params(number: intleValue));
 
           // возвращаем стейт
           yield* _eitherLoadedOrErrorState(usecaseResult);

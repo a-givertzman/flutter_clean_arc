@@ -65,7 +65,7 @@ main() {
 
 
   group('getConcreteNumberTrivia', () {
-    final double tNumber = 1.0;
+    final int tNumber = 1;
     final tNumberTriviaModel = NumberTriviaModel(number: tNumber, text: "Test Number Trivia");
     final NumberTrivia tNumberTrivia = tNumberTriviaModel;
 

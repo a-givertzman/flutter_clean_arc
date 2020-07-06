@@ -7,12 +7,12 @@ abstract class NumberTriviaState extends Equatable {
 
 
 class Initial extends NumberTriviaState {
-  final String initMessage;
+  final String message;
 
-  Initial({@required this.initMessage});
+  Initial({@required this.message});
 
   @override
-  List<Object> get props => [initMessage];
+  List<Object> get props => [message];
 }
 
 

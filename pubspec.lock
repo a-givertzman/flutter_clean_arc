@@ -119,7 +119,7 @@ packages:
       name: dartz
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.1"
+    version: "0.8.9"
   data_connection_checker:
     dependency: "direct main"
     description:

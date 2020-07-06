@@ -28,7 +28,7 @@ void main() {
   }
 
   group('getConcreteNumberTrivia', () {
-    final tNumber = 1.0;
+    final tNumber = 1;
     final tNumberTriviaModel = NumberTriviaModel.fromJson(json.decode(fixture('trivia_int.json')));
 
     test(

@@ -6,7 +6,7 @@ class NumberTriviaModel extends NumberTrivia {
 
   NumberTriviaModel({
     @required String text,
-    @required double number,
+    @required int number,
   }) : super(text: text, number: number);
 
 
@@ -14,7 +14,7 @@ class NumberTriviaModel extends NumberTrivia {
 
     return NumberTriviaModel(
       text: json['text'],
-      number: json['number'].toDouble(), 
+      number: json['number'].toInt(), 
     );
   }
 

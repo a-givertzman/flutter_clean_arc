@@ -6,13 +6,13 @@ import 'package:meta/meta.dart';
 import '../../../../core/error/exceptions.dart';
 import '../models/model.dart';
 
-
+ 
 abstract class NumberTriviaRemoteDataSource {
 
   /// Метод вызывает http://numbersapi.com/random/[number]?json
   /// 
   /// Сгененрирует [ServerExeption] при любой ошибке
-  Future<NumberTriviaModel> getConcreteNumberTrivia(double number);
+  Future<NumberTriviaModel> getConcreteNumberTrivia(int number);
 
   /// Метод вызывает http://numbersapi.com/random/trivia?json
   /// 
@@ -30,7 +30,7 @@ class NumberTriviaRemoteDataSourceImpl implements NumberTriviaRemoteDataSource {
 
 
   @override
-  Future<NumberTriviaModel> getConcreteNumberTrivia(double number) {
+  Future<NumberTriviaModel> getConcreteNumberTrivia(int number) {
     return _getNumberTriviaFromUrl('http://numbersapi.com/$number');
   }
 

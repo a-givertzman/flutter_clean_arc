@@ -48,17 +48,17 @@ void main() {
       // act
   
       // assert
-      expect(bloc.state, emits(Initial(initMessage: INIT_STATE_MESSAGE)));
+      expect(bloc.state, emits(Initial(message: INIT_STATE_MESSAGE)));
     },
   );
 
   group('getTriviaForConcreteNumber', () {
     final tNumberString = '81';     // пользователь ввел строку
-    final tNumberParsed = 81.0;     // строка введенная пользователем после конвертации в double
-    final tNumberTrivia = NumberTrivia(number: 81.0, text: 'Test text');
+    final tNumberParsed = 81;     // строка введенная пользователем после конвертации в double
+    final tNumberTrivia = NumberTrivia(number: 81, text: 'Test text');
 
     // функция проверит что inputConverter успешно вернул верное значение
-    void setUpMockInputConverterSuccess() => when(mockInputConverter.stringToDouble(any))
+    void setUpMockInputConverterSuccess() => when(mockInputConverter.stringToUInt(any))
           .thenReturn(Right(tNumberParsed));
 
 
@@ -71,10 +71,10 @@ void main() {
 
         // act
         bloc.dispatch(GetTriviaForConcreteNumber(tNumberString));
-        await untilCalled(mockInputConverter.stringToDouble(any));
+        await untilCalled(mockInputConverter.stringToUInt(any));
 
         // assert
-        verify(mockInputConverter.stringToDouble(tNumberString));
+        verify(mockInputConverter.stringToUInt(tNumberString));
       },
     );
 
@@ -82,13 +82,13 @@ void main() {
       'должен вернуть ошибку при условии что введено недопустимое значение',
       () async {
         // arrange
-        when(mockInputConverter.stringToDouble(any))
+        when(mockInputConverter.stringToUInt(any))
           .thenReturn(Left(InvalidInputFailure(message: 'Подходит только положительное целое, строка не содержит целое.')));
     
         // assert later - сначала объявим чего ожидаем
         // state последовательно переходит в состояния перечисленные в массиве expected
         final expected = [
-          Initial(initMessage: INIT_STATE_MESSAGE),
+          Initial(message: INIT_STATE_MESSAGE),
           Error(message: INVALID_INPUT_FAILURE_MESSAGE)
         ];
         expectLater(bloc.state, emitsInOrder(expected));
@@ -135,7 +135,7 @@ void main() {
     
         // assert later
         final expected = [
-          Initial(initMessage: INIT_STATE_MESSAGE),
+          Initial(message: INIT_STATE_MESSAGE),
           Loading(message: LOADING_STATE_MESSAGE),
           Loaded(numberTrivia: tNumberTrivia),
         ];
@@ -160,7 +160,7 @@ void main() {
     
         // assert later
         final expected = [
-          Initial(initMessage: INIT_STATE_MESSAGE),
+          Initial(message: INIT_STATE_MESSAGE),
           Loading(message: LOADING_STATE_MESSAGE),
           Error(message: SERVER_FAILURE_MESSAGE),
         ];
@@ -184,7 +184,7 @@ void main() {
     
         // assert later
         final expected = [
-          Initial(initMessage: INIT_STATE_MESSAGE),
+          Initial(message: INIT_STATE_MESSAGE),
           Loading(message: LOADING_STATE_MESSAGE),
           Error(message: CACHE_FAILURE_MESSAGE),
         ];
@@ -197,7 +197,7 @@ void main() {
   });
 
   group('getTriviaForRandomNumber', () {
-    final tNumberTrivia = NumberTrivia(number: 81.0, text: 'Test text');
+    final tNumberTrivia = NumberTrivia(number: 81, text: 'Test text');
 
     test(
       'должен вернуть данные из GetRandomNumberTrivia usecase',
@@ -231,7 +231,7 @@ void main() {
     
         // assert later
         final expected = [
-          Initial(initMessage: INIT_STATE_MESSAGE),
+          Initial(message: INIT_STATE_MESSAGE),
           Loading(message: LOADING_STATE_MESSAGE),
           Loaded(numberTrivia: tNumberTrivia),
         ];
@@ -253,7 +253,7 @@ void main() {
     
         // assert later
         final expected = [
-          Initial(initMessage: INIT_STATE_MESSAGE),
+          Initial(message: INIT_STATE_MESSAGE),
           Loading(message: LOADING_STATE_MESSAGE),
           Error(message: SERVER_FAILURE_MESSAGE),
         ];
@@ -275,7 +275,7 @@ void main() {
     
         // assert later
         final expected = [
-          Initial(initMessage: INIT_STATE_MESSAGE),
+          Initial(message: INIT_STATE_MESSAGE),
           Loading(message: LOADING_STATE_MESSAGE),
           Error(message: CACHE_FAILURE_MESSAGE),
         ];
