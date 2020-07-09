@@ -9,18 +9,12 @@ import 'package:dartz/dartz.dart';
 import 'package:mockito/mockito.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+class MockGetConcreteNumberTrivia extends Mock
+    implements GetConcreteNumberTrivia {}
 
-class MockGetConcreteNumberTrivia extends Mock 
-  implements GetConcreteNumberTrivia {}
+class MockGetRandomNumberTrivia extends Mock implements GetRandomNumberTrivia {}
 
-
-class MockGetRandomNumberTrivia extends Mock 
-  implements GetRandomNumberTrivia {}
-
-
-class MockInputConverter extends Mock 
-  implements InputConverter {}
-
+class MockInputConverter extends Mock implements InputConverter {}
 
 void main() {
   NumberTriviaBloc bloc;
@@ -34,33 +28,33 @@ void main() {
     mockInputConverter = MockInputConverter();
 
     bloc = NumberTriviaBloc(
-      concrete: mockGetConcreteNumberTrivia, 
-      random: mockGetRandomNumberTrivia, 
-      inputConverter: mockInputConverter
-    );
+        concrete: mockGetConcreteNumberTrivia,
+        random: mockGetRandomNumberTrivia,
+        inputConverter: mockInputConverter);
   });
 
   test(
     'должен вернуть Inital',
     () async {
       // arrange
-  
+
       // act
-  
+
       // assert
       expect(bloc.state, emits(Initial(message: INIT_STATE_MESSAGE)));
     },
   );
 
   group('getTriviaForConcreteNumber', () {
-    final tNumberString = '81';     // пользователь ввел строку
-    final tNumberParsed = 81;     // строка введенная пользователем после конвертации в double
+    final tNumberString = '81'; // пользователь ввел строку
+    final tNumberParsed =
+        81; // строка введенная пользователем после конвертации в double
     final tNumberTrivia = NumberTrivia(number: 81, text: 'Test text');
 
     // функция проверит что inputConverter успешно вернул верное значение
-    void setUpMockInputConverterSuccess() => when(mockInputConverter.stringToUInt(any))
-          .thenReturn(Right(tNumberParsed));
-
+    void setUpMockInputConverterSuccess() =>
+        when(mockInputConverter.stringToUInt(any))
+            .thenReturn(Right(tNumberParsed));
 
     test(
       'должен запустить InputConverter что бы проверить и преобразовать введенную строку',
@@ -70,7 +64,7 @@ void main() {
         setUpMockInputConverterSuccess();
 
         // act
-        bloc.dispatch(GetTriviaForConcreteNumber(tNumberString));
+        bloc.add(GetTriviaForConcreteNumber(tNumberString));
         await untilCalled(mockInputConverter.stringToUInt(any));
 
         // assert
@@ -82,9 +76,11 @@ void main() {
       'должен вернуть ошибку при условии что введено недопустимое значение',
       () async {
         // arrange
-        when(mockInputConverter.stringToUInt(any))
-          .thenReturn(Left(InvalidInputFailure(message: 'Подходит только положительное целое, строка не содержит целое.')));
-    
+        when(mockInputConverter.stringToUInt(any)).thenReturn(Left(
+            InvalidInputFailure(
+                message:
+                    'Подходит только положительное целое, строка не содержит целое.')));
+
         // assert later - сначала объявим чего ожидаем
         // state последовательно переходит в состояния перечисленные в массиве expected
         final expected = [
@@ -94,8 +90,7 @@ void main() {
         expectLater(bloc.state, emitsInOrder(expected));
 
         // act - затем запустим процесс
-        bloc.dispatch(GetTriviaForConcreteNumber(tNumberString));
-        
+        bloc.add(GetTriviaForConcreteNumber(tNumberString));
       },
     );
 
@@ -107,18 +102,17 @@ void main() {
         setUpMockInputConverterSuccess();
         // проверяем что GetConcreteNumberTrivia usecase успешно вернула tNumberTrivia
         when(mockGetConcreteNumberTrivia(any))
-          .thenAnswer((_) async => Right(tNumberTrivia));
-    
+            .thenAnswer((_) async => Right(tNumberTrivia));
+
         // act
         // генерим event GetTriviaForConcreteNumber
-        bloc.dispatch(GetTriviaForConcreteNumber(tNumberString));
+        bloc.add(GetTriviaForConcreteNumber(tNumberString));
         // ждем когда event GetTriviaForConcreteNumber отработает
         await untilCalled(mockGetConcreteNumberTrivia(any));
-        
+
         // assert
         // смотрим что бы usecase GetConcreteNumberTrivia был вызван с тем же аргументом что мы получили от inputConverter
         verify(mockGetConcreteNumberTrivia(Params(number: tNumberParsed)));
-
       },
     );
 
@@ -131,8 +125,8 @@ void main() {
         setUpMockInputConverterSuccess();
         // проверяем что GetConcreteNumberTrivia usecase успешно вернула tNumberTrivia
         when(mockGetConcreteNumberTrivia(any))
-          .thenAnswer((_) async => Right(tNumberTrivia));
-    
+            .thenAnswer((_) async => Right(tNumberTrivia));
+
         // assert later
         final expected = [
           Initial(message: INIT_STATE_MESSAGE),
@@ -142,8 +136,7 @@ void main() {
         expectLater(bloc.state, emitsInOrder(expected));
 
         // act
-        bloc.dispatch(GetTriviaForConcreteNumber(tNumberString));
-    
+        bloc.add(GetTriviaForConcreteNumber(tNumberString));
       },
     );
 
@@ -156,8 +149,8 @@ void main() {
         setUpMockInputConverterSuccess();
         // проверяем что GetConcreteNumberTrivia usecase был неуспешен и вернул Failure
         when(mockGetConcreteNumberTrivia(any))
-          .thenAnswer((_) async => Left(ServerFailure('')));
-    
+            .thenAnswer((_) async => Left(ServerFailure('')));
+
         // assert later
         final expected = [
           Initial(message: INIT_STATE_MESSAGE),
@@ -167,7 +160,7 @@ void main() {
         expectLater(bloc.state, emitsInOrder(expected));
 
         // act
-        bloc.dispatch(GetTriviaForConcreteNumber(tNumberString));
+        bloc.add(GetTriviaForConcreteNumber(tNumberString));
       },
     );
 
@@ -180,8 +173,8 @@ void main() {
         setUpMockInputConverterSuccess();
         // проверяем что GetConcreteNumberTrivia usecase был неуспешен и вернул Failure
         when(mockGetConcreteNumberTrivia(any))
-          .thenAnswer((_) async => Left(CacheFailure('')));
-    
+            .thenAnswer((_) async => Left(CacheFailure('')));
+
         // assert later
         final expected = [
           Initial(message: INIT_STATE_MESSAGE),
@@ -191,7 +184,7 @@ void main() {
         expectLater(bloc.state, emitsInOrder(expected));
 
         // act
-        bloc.dispatch(GetTriviaForConcreteNumber(tNumberString));
+        bloc.add(GetTriviaForConcreteNumber(tNumberString));
       },
     );
   });
@@ -205,18 +198,17 @@ void main() {
         // arrange
         // проверяем что GetRandomNumberTrivia usecase успешно вернула tNumberTrivia
         when(mockGetRandomNumberTrivia(any))
-          .thenAnswer((_) async => Right(tNumberTrivia));
-    
+            .thenAnswer((_) async => Right(tNumberTrivia));
+
         // act
         // генерим event GetTriviaForRandomNumber
-        bloc.dispatch(GetTriviaForRandomNumber());
+        bloc.add(GetTriviaForRandomNumber());
         // ждем когда event GetTriviaForRandomNumber отработает
         await untilCalled(mockGetRandomNumberTrivia(any));
-        
+
         // assert
         // смотрим что бы usecase GetRandomNumberTrivia был вызван с NoParams
         verify(mockGetRandomNumberTrivia(NoParams()));
-
       },
     );
 
@@ -227,8 +219,8 @@ void main() {
         // arrange
         // проверяем что GetRandomNumberTrivia usecase успешно вернула tNumberTrivia
         when(mockGetRandomNumberTrivia(any))
-          .thenAnswer((_) async => Right(tNumberTrivia));
-    
+            .thenAnswer((_) async => Right(tNumberTrivia));
+
         // assert later
         final expected = [
           Initial(message: INIT_STATE_MESSAGE),
@@ -238,7 +230,7 @@ void main() {
         expectLater(bloc.state, emitsInOrder(expected));
 
         // act
-        bloc.dispatch(GetTriviaForRandomNumber());
+        bloc.add(GetTriviaForRandomNumber());
       },
     );
 
@@ -249,8 +241,8 @@ void main() {
         // arrange
         // проверяем что GetConcreteNumberTrivia usecase был неуспешен и вернул Failure
         when(mockGetRandomNumberTrivia(any))
-          .thenAnswer((_) async => Left(ServerFailure('')));
-    
+            .thenAnswer((_) async => Left(ServerFailure('')));
+
         // assert later
         final expected = [
           Initial(message: INIT_STATE_MESSAGE),
@@ -260,7 +252,7 @@ void main() {
         expectLater(bloc.state, emitsInOrder(expected));
 
         // act
-        bloc.dispatch(GetTriviaForRandomNumber());
+        bloc.add(GetTriviaForRandomNumber());
       },
     );
 
@@ -271,8 +263,8 @@ void main() {
         // arrange
         // проверяем что GetConcreteNumberTrivia usecase был неуспешен и вернул Failure
         when(mockGetRandomNumberTrivia(any))
-          .thenAnswer((_) async => Left(CacheFailure('')));
-    
+            .thenAnswer((_) async => Left(CacheFailure('')));
+
         // assert later
         final expected = [
           Initial(message: INIT_STATE_MESSAGE),
@@ -282,9 +274,8 @@ void main() {
         expectLater(bloc.state, emitsInOrder(expected));
 
         // act
-        bloc.dispatch(GetTriviaForRandomNumber());
+        bloc.add(GetTriviaForRandomNumber());
       },
     );
   });
-
 }

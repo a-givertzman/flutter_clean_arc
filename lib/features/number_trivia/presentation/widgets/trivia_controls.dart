@@ -2,7 +2,6 @@ import 'package:clean_arcitecture/features/number_trivia/presentation/bloc/numbe
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 class TriviaControls extends StatefulWidget {
   const TriviaControls({
     Key key,
@@ -39,43 +38,38 @@ class _TriviaControlsState extends State<TriviaControls> {
         Row(
           children: <Widget>[
             Expanded(
-              child: RaisedButton(
-                child: Text('Поиск'),
-                color: Theme.of(context).accentColor,
-                textTheme: ButtonTextTheme.primary,
-                onPressed: () {
-                  _dispatchConcrete();
-                },
-              )
-            ),
+                child: RaisedButton(
+              child: Text('Поиск'),
+              color: Theme.of(context).accentColor,
+              textTheme: ButtonTextTheme.primary,
+              onPressed: () {
+                _dispatchConcrete();
+              },
+            )),
             SizedBox(width: 10),
             Expanded(
-              child: RaisedButton(
-                child: Text('Рандомное число'),
-                color: Theme.of(context).accentColor,
-                textTheme: ButtonTextTheme.primary,
-                onPressed: () {
-                  _dispatchRandom();
-                },
-              )
-            ),
+                child: RaisedButton(
+              child: Text('Рандомное число'),
+              color: Theme.of(context).accentColor,
+              textTheme: ButtonTextTheme.primary,
+              onPressed: () {
+                _dispatchRandom();
+              },
+            )),
           ],
         )
       ],
     );
   }
 
-
   void _dispatchConcrete() {
     controller.clear();
     BlocProvider.of<NumberTriviaBloc>(context)
-      .dispatch(GetTriviaForConcreteNumber(inputString));
+        .add(GetTriviaForConcreteNumber(inputString));
   }
-
 
   void _dispatchRandom() {
     controller.clear();
-    BlocProvider.of<NumberTriviaBloc>(context)
-      .dispatch(GetTriviaForRandomNumber());
+    BlocProvider.of<NumberTriviaBloc>(context).add(GetTriviaForRandomNumber());
   }
 }
