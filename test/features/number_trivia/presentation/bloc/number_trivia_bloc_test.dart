@@ -41,7 +41,7 @@ void main() {
       // act
 
       // assert
-      expect(bloc.state, emits(Initial(message: INIT_STATE_MESSAGE)));
+      expect(bloc, emits(Initial(message: INIT_STATE_MESSAGE)));
     },
   );
 
@@ -87,7 +87,7 @@ void main() {
           Initial(message: INIT_STATE_MESSAGE),
           Error(message: INVALID_INPUT_FAILURE_MESSAGE)
         ];
-        expectLater(bloc.state, emitsInOrder(expected));
+        expectLater(bloc, emitsInOrder(expected));
 
         // act - затем запустим процесс
         bloc.add(GetTriviaForConcreteNumber(tNumberString));
@@ -133,7 +133,7 @@ void main() {
           Loading(message: LOADING_STATE_MESSAGE),
           Loaded(numberTrivia: tNumberTrivia),
         ];
-        expectLater(bloc.state, emitsInOrder(expected));
+        expectLater(bloc, emitsInOrder(expected));
 
         // act
         bloc.add(GetTriviaForConcreteNumber(tNumberString));
@@ -157,7 +157,7 @@ void main() {
           Loading(message: LOADING_STATE_MESSAGE),
           Error(message: SERVER_FAILURE_MESSAGE),
         ];
-        expectLater(bloc.state, emitsInOrder(expected));
+        expectLater(bloc, emitsInOrder(expected));
 
         // act
         bloc.add(GetTriviaForConcreteNumber(tNumberString));
@@ -181,7 +181,7 @@ void main() {
           Loading(message: LOADING_STATE_MESSAGE),
           Error(message: CACHE_FAILURE_MESSAGE),
         ];
-        expectLater(bloc.state, emitsInOrder(expected));
+        expectLater(bloc, emitsInOrder(expected));
 
         // act
         bloc.add(GetTriviaForConcreteNumber(tNumberString));
@@ -227,7 +227,7 @@ void main() {
           Loading(message: LOADING_STATE_MESSAGE),
           Loaded(numberTrivia: tNumberTrivia),
         ];
-        expectLater(bloc.state, emitsInOrder(expected));
+        expectLater(bloc, emitsInOrder(expected));
 
         // act
         bloc.add(GetTriviaForRandomNumber());
@@ -249,7 +249,7 @@ void main() {
           Loading(message: LOADING_STATE_MESSAGE),
           Error(message: SERVER_FAILURE_MESSAGE),
         ];
-        expectLater(bloc.state, emitsInOrder(expected));
+        expectLater(bloc, emitsInOrder(expected));
 
         // act
         bloc.add(GetTriviaForRandomNumber());
@@ -271,7 +271,7 @@ void main() {
           Loading(message: LOADING_STATE_MESSAGE),
           Error(message: CACHE_FAILURE_MESSAGE),
         ];
-        expectLater(bloc.state, emitsInOrder(expected));
+        expectLater(bloc, emitsInOrder(expected));
 
         // act
         bloc.add(GetTriviaForRandomNumber());

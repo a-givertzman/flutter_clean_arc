@@ -46,6 +46,7 @@ dependencies:
   # Convert objects to JSON strings
   dson: ^0.16.0
 
+  characters: ^1.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
